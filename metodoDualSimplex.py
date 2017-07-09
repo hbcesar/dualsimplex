@@ -16,13 +16,15 @@ class MetodoDualSimplex(object):
 
 		numLinhas = len(matrix) - 1
 		numColunas = len(matrix[0]) - 1
-		# numVB = numLinhas
 		passo = 0
 
 		if self.s.noSolution(matrix):
 			sys.exit(1)
 
 		if self.s.optimalSolution(matrix):
+			print "Quadro ótimo:"
+			print(matrix)
+
 			if self.s.multipleSolution(matrix):
 				print "Problema possui múltiplas soluções..."
 			else:
@@ -33,9 +35,7 @@ class MetodoDualSimplex(object):
 
 			x,z = self.s.mountSolution(matrix)
 
-			print "Quadro ótimo:"
-			print(matrix)
-			print "X* = ", x
+			print "\nX* = ", x
 			print "Z* = ", z
 
 			return matrix, x, z
@@ -59,13 +59,11 @@ class MetodoDualSimplex(object):
 
 			pivo = matrix[linhaMenor][colunaMenor]
 
-			# vb[linhaMenor] = colunaMenor
-
 			if pivo != 1:
 				matrix[linhaMenor, :] = matrix[linhaMenor, :] / pivo
 
 
-			for i in range(numLinhas):
+			for i in range(numLinhas + 1):
 				if i != linhaMenor:
 					if matrix[i][colunaMenor] != 0:
 						#calcula todas as linhas
@@ -75,6 +73,9 @@ class MetodoDualSimplex(object):
 				sys.exit(1)
 
 			if self.s.optimalSolution(matrix):
+				print "\nQuadro ótimo:"
+				print(matrix), "\n"
+
 				if self.s.multipleSolution(matrix):
 					print "Problema possui múltiplas soluções..."
 				else:
@@ -85,9 +86,7 @@ class MetodoDualSimplex(object):
 
 				x,z = self.s.mountSolution(matrix)
 
-				print "\nQuadro ótimo:"
-				print(matrix), "\n"
-				print "X* = ", x
+				print "\nX* = ", x
 				print "Z* = ", z
 			else:
 				passo = passo + 1

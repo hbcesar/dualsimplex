@@ -24,7 +24,7 @@ class Solution(object):
 				if matrix[i][0] < 0:
 					print "Tableau não possui solução única viável."
 					print "W = +inf"
-					print "Abortando"
+					print "Abortando..."
 					return True
 
 		return False
@@ -42,7 +42,6 @@ class Solution(object):
 	def multipleSolution(self, matrix):
 		for i in range(1, self.colunas):
 			if (not self.canonico(matrix[:,i])) and matrix[0][i] == 0:
-				print "multiplas: ", matrix[:,i]
 				return True
 
 		return False
